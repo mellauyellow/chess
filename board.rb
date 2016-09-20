@@ -46,7 +46,7 @@ class Board
   end
 
   def checkmate?(color)
-    return false unless in_check?(color)
+    # return false unless in_check?(color)
     find_pieces(color).all? do |piece|
       piece.valid_moves.empty?
     end
@@ -75,7 +75,7 @@ class Board
   def find_king(color)
     @grid.each do |row|
       row.each do |piece|
-        return piece.position if piece.symbol == :K && piece.color == color
+        return piece.position if piece.is_a?(King) && piece.color == color
       end
     end
   end

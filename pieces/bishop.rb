@@ -10,7 +10,7 @@ class Bishop < Piece
     end
   end
   def initialize(position, board, color)
-    @symbol = (color == :black) ? "\u265D" : "\u2657"
+    @symbol = (color == :black) ? "\u265D".encode('utf-8') : "\u2657".encode('utf-8')
     super
   end
 

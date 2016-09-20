@@ -10,7 +10,7 @@ class Queen < Piece
     end
   end
   def initialize(position, board, color)
-    @symbol = (color == :black) ? "\u265B" : "\u2655"
+    @symbol = (color == :black) ? "\u265B".encode('utf-8') : "\u2655".encode('utf-8')
     super
   end
 

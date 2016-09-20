@@ -24,8 +24,8 @@ class ChessGame
     @current_player = @player1
   end
 
-  def show
-    @display.show
+  def show(valid_moves = [[]])
+    @display.show(valid_moves)
   end
 
   def play
@@ -40,8 +40,9 @@ class ChessGame
   def play_turn
     @current_player.start_prompt
     start_pos = show
+    valid_moves = @board[start_pos].open_moves
     @current_player.end_prompt
-    end_pos = show
+    end_pos = show(valid_moves)
 
     @board.move(start_pos, end_pos, @current_player.color)
   rescue MoveError => e

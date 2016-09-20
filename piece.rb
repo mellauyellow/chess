@@ -1,6 +1,5 @@
 require 'singleton'
 
-
 class Piece
   attr_reader :symbol, :color
   attr_accessor :position, :board
@@ -12,9 +11,7 @@ class Piece
   end
 
   def valid_moves
-    open_moves.reject do |move|
-      move_into_check?(move)
-    end
+    open_moves.reject { |move| move_into_check?(move) }
   end
 
   def open_moves

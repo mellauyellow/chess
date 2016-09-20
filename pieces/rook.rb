@@ -10,7 +10,7 @@ class Rook < Piece
     end
   end
   def initialize(position, board, color)
-    @symbol = (color == :black) ? "\u265C" : "\u2656"
+    @symbol = (color == :black) ? "\u265C".encode('utf-8') : "\u2656".encode('utf-8')
     super
   end
 

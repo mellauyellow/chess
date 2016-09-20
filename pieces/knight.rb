@@ -10,7 +10,7 @@ class Knight < Piece
     end
   end
   def initialize(position, board, color)
-    @symbol = (color == :black) ? "\u265E" : "\u2658"
+    @symbol = (color == :black) ? "\u265E".encode('utf-8') : "\u2658".encode('utf-8')
     super
   end
 

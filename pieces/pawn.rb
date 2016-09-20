@@ -9,7 +9,7 @@ class Pawn < Piece
   end
 
   def initialize(position, board, color)
-    @symbol = (color == :black) ? "\u265F" : "\u2659"
+    @symbol = (color == :black) ? "\u265F".encode('utf-8') : "\u2659".encode('utf-8')
     super
     @start_row = @position[0]
   end
