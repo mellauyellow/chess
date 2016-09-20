@@ -11,17 +11,19 @@ class Display
   end
 
   def show
-    while true
+    move = nil
+    while move.nil?
       system("clear")
       render(@cursor.cursor_pos)
-      @cursor.get_input
+      move = @cursor.get_input
     end
+    move
   end
 
   def render(cursor_pos)
-    puts "  #{(0..7).to_a.join(' ')}"
+    puts "  #{('a'..'h').to_a.join(' ')}"
     @board.grid.each_with_index do |row, idx|
-      print "#{idx} "
+      print "#{8 - idx} "
       row.each_with_index do |el, idx2|
         if [idx, idx2] == cursor_pos
           print el.to_s.colorize(:background => :blue) + " "
@@ -32,17 +34,4 @@ class Display
       puts
     end
   end
-end
-
-if __FILE__ == $0
-  board = Board.new
-  new_board = Board.new
-  piece = King.new([0,1], board, :red)
-  piece2 = Rook.new([0,2], board, :white)
-  piece3 = Rook.new([1,2], board, :white)
-
-  p piece.valid_moves
-  p board.checkmate?(:red)
-  # display = Display.new(board)
-  # display.show
 end
