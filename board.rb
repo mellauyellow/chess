@@ -1,17 +1,7 @@
 require_relative 'piece'
 
 class Board
-  STARTING_POSITIONS = [
-    {B: [2,5], R: [0,7], N: [1,6], Q: [3], K: [4]},
-    {P: [0,1,2,3,4,5,6,7]}
-  ]
   attr_reader :grid
-
-  def self.new_game
-    board = Board.new
-    Piece.setup(board)
-    board
-  end
 
   def initialize
     @grid = Array.new(8) { Array.new(8) { NullPiece.instance } }
@@ -48,7 +38,7 @@ class Board
   def in_check?(color)
     king_position = find_king(color)
 
-    opp_color = color == :red ? :white : :red
+    opp_color = color == :black ? :white : :black
 
     find_pieces(opp_color).any? do |piece|
       piece.open_moves.include?(king_position)
@@ -63,8 +53,24 @@ class Board
   end
 
   def over?
-    checkmate?(:red) || checkmate?(:white)
+    checkmate?(:black) || checkmate?(:white)
   end
+
+  def [](pos)
+    row, col = pos
+    @grid[row][col]
+  end
+
+  def []=(pos, piece)
+    row, col = pos
+    @grid[row][col] = piece
+  end
+
+  def in_bounds?(pos)
+    pos.all? { |el| el.between?(0,7) }
+  end
+
+  protected
 
   def find_king(color)
     @grid.each do |row|
@@ -84,26 +90,6 @@ class Board
     end
 
     pieces
-  end
-
-  def [](pos)
-    row, col = pos
-    @grid[row][col]
-  end
-
-  def []=(pos, piece)
-    row, col = pos
-    @grid[row][col] = piece
-  end
-
-  def in_bounds?(pos)
-    pos.all? { |el| el.between?(0,7) }
-  end
-
-  protected
-
-  def _make_starting_grid
-    #will add after Piece class done
   end
 end
 

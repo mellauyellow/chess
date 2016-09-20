@@ -1,14 +1,25 @@
 require_relative 'board'
-require_relative 'piece'
+require 'require_all'
+require_all 'pieces'
 require_relative 'player'
 require_relative 'display'
 
 class ChessGame
+  def self.new_board
+    board = Board.new
+    Pawn.setup(board)
+    Knight.setup(board)
+    Rook.setup(board)
+    Queen.setup(board)
+    Bishop.setup(board)
+    King.setup(board)
+    board
+  end
 
   def initialize(name1, name2)
     @player1 = HumanPlayer.new(name1, :white)
-    @player2 = HumanPlayer.new(name2, :red)
-    @board = Board.new_game
+    @player2 = HumanPlayer.new(name2, :black)
+    @board = ChessGame.new_board
     @display = Display.new(@board)
     @current_player = @player1
   end
