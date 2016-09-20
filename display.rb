@@ -36,11 +36,14 @@ end
 
 if __FILE__ == $0
   board = Board.new
-  piece = Pawn.new([4,4], board, :red)
-  block = Rook.new([5,5], board, :white)
-  board[[4,4]] = piece
-  board[[5,5]] = block
-  p piece.valid_moves
+  piece = King.new([0,1], board, :red)
+  new_board = Board.new
+  block = piece.dup(new_board)
+
+  block.position[0] = 'changed'
+
+  p piece.position
+  p block.position
   # display = Display.new(board)
   # display.show
 end

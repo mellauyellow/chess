@@ -2,6 +2,7 @@ require 'singleton'
 
 class Piece
   attr_reader :symbol, :color
+  attr_accessor :position, :board
   def initialize(position, board, color)
     @position = position
     @board = board
@@ -9,7 +10,9 @@ class Piece
   end
 
   def valid_moves
-    moves.select { |move| move.all? { |pos| pos.between?(0, 7) } }
+    moves.select do |move|
+      move.all? { |pos| pos.between?(0, 7) } && @board[move].color != @color
+    end
   end
 
   def to_s
@@ -18,6 +21,11 @@ class Piece
 
   def enemy?(piece)
     @color != piece.color && !piece.color.nil?
+  end
+
+  def dup(new_board)
+    new_pos = @position.dup
+    self.class.new(new_pos, new_board, @color)
   end
 end
 
