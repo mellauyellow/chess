@@ -24,9 +24,9 @@ class Display
       print "#{idx} "
       row.each_with_index do |el, idx2|
         if [idx, idx2] == cursor_pos
-          print el.symbol.colorize(:background => :blue) + " "
+          print el.to_s.colorize(:background => :blue) + " "
         else
-          print el.symbol + " "
+          print el.to_s + " "
         end
       end
       puts
@@ -36,7 +36,11 @@ end
 
 if __FILE__ == $0
   board = Board.new
-  board[[0,0]] = Piece.new([0,0])
-  display = Display.new(board)
-  display.show
+  piece = Pawn.new([4,4], board, :red)
+  block = Rook.new([5,5], board, :white)
+  board[[4,4]] = piece
+  board[[5,5]] = block
+  p piece.valid_moves
+  # display = Display.new(board)
+  # display.show
 end
