@@ -6,14 +6,25 @@ class Board
     @grid = Array.new(8) { Array.new(8) { NullPiece.instance } }
   end
 
-  # ADD BOARD.DUP METHOD!
+  def dup
+    new_board = Board.new
+
+    @grid.each do |row|
+      row.each do |piece|
+        piece.dup(new_board) unless piece.is_a?(NullPiece)
+      end
+    end
+
+    new_board
+  end
 
   def move(start, end_pos)
-    if self[start].is_a?(NullPiece) || !self[end_pos].is_a?(NullPiece)
+    if self[start].is_a?(NullPiece)
       raise "Invalid move"
     end
 
     self[end_pos] = self[start]
+    self[end_pos].position = end_pos
     self[start] = NullPiece.instance
   end
 
@@ -23,7 +34,7 @@ class Board
     opp_color = color == :red ? :white : :red
 
     find_pieces(opp_color).any? do |piece|
-      piece.valid_moves.include?(king_position)
+      piece.open_moves.include?(king_position)
     end
   end
 

@@ -36,14 +36,13 @@ end
 
 if __FILE__ == $0
   board = Board.new
-  piece = King.new([0,1], board, :red)
   new_board = Board.new
-  block = piece.dup(new_board)
+  piece = King.new([0,1], board, :red)
+  piece2 = Rook.new([0,2], board, :white)
+  piece3 = Rook.new([1,2], board, :white)
 
-  block.position[0] = 'changed'
-
-  p piece.position
-  p block.position
+  p piece.valid_moves
+  p board.checkmate?(:red)
   # display = Display.new(board)
   # display.show
 end

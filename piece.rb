@@ -7,12 +7,27 @@ class Piece
     @position = position
     @board = board
     @color = color
+    @board[@position] = self
   end
 
   def valid_moves
+    open_moves.reject do |move|
+      move_into_check?(move)
+    end
+  end
+
+  def open_moves
     moves.select do |move|
       move.all? { |pos| pos.between?(0, 7) } && @board[move].color != @color
     end
+  end
+
+  def move_into_check?(end_pos)
+    new_board = @board.dup
+
+    new_board.move(@position, end_pos)
+
+    new_board.in_check?(@color)
   end
 
   def to_s
