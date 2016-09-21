@@ -40,7 +40,7 @@ class ChessGame
   def play_turn
     @current_player.start_prompt
     start_pos = show
-    valid_moves = @board[start_pos].open_moves
+    valid_moves = @board[start_pos].valid_moves
     @current_player.end_prompt
     end_pos = show(valid_moves)
 

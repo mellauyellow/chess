@@ -7,11 +7,11 @@ class HumanPlayer
 
   def start_prompt
     puts "#{@name}, select a piece:"
-    sleep(0.4)
+    # sleep(0.4)
   end
 
   def end_prompt
     puts "Select your end position:"
-    sleep(0.4)
+    # sleep(0.4)
   end
 end

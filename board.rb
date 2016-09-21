@@ -26,7 +26,17 @@ class Board
       raise MoveError.new("Please select a piece.")
     elsif piece.color != color
       raise MoveError.new("Don't move your opponent's pieces!")
-    elsif !piece.open_moves.include?(end_pos)
+    elsif !piece.valid_moves.include?(end_pos)
+      raise MoveError.new("Not a valid move.")
+    end
+
+    move!(start, end_pos, color)
+  end
+
+  def move!(start, end_pos, color)
+    piece = self[start]
+
+    if !piece.open_moves.include?(end_pos)
       raise MoveError.new("Not a valid move.")
     end
 
