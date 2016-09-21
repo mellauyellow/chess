@@ -35,6 +35,8 @@ class Display
     text = piece.to_s + " "
     if [row, col] == @cursor.cursor_pos
       print text.colorize(:background => :blue)
+    elsif piece.is_a?(King) && @board.in_check?(piece.color)
+      print text.colorize(:red)
     elsif valid_moves.include?([row, col])
       print text.colorize(:background => :green)
     elsif (row.even? && col.even?) || (row.odd? && col.odd?)

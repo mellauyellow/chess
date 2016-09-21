@@ -32,6 +32,7 @@ class ChessGame
     until @board.over?
       play_turn
       switch_player
+      in_check?
     end
 
     puts "Game over!"
@@ -53,6 +54,13 @@ class ChessGame
 
   def switch_player
     @current_player = @current_player == @player1 ? @player2 : @player1
+  end
+
+  private
+
+  def in_check?
+    puts "In check!" if @board.in_check?(@current_player.color)
+    sleep(0.5)
   end
 end
 
